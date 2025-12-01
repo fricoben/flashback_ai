@@ -12,7 +12,7 @@
 - 💝 **Deeply Personal** — Every film is unique, crafted to honor your family's specific journey
 - 🕰️ **Timeless Gift** — Perfect for birthdays, anniversaries, Mother's Day, Father's Day, or memorials
 - 📸 **All Photos Welcome** — Old prints, polaroids, digital photos — we handle them all
-- ⚡ **Fast Delivery** — Most mini-films ready within 24-48 hours
+- ⚡ **Fast Delivery** — Most mini-films ready within an hour
 - 🔒 **Privacy First** — Photos encrypted, deleted within 30 days of delivery
 
 ---
@@ -23,7 +23,7 @@ Creating a mini-film is simple:
 
 1. **Upload Photos** — Gather 15-50 family photos spanning any era
 2. **Choose Style** — Select a film style and music that matches your story
-3. **Receive Film** — Get your HD mini-film via email within 24-48 hours
+3. **Receive Film** — Get your HD mini-film via email within an hour
 
 **[Get started →](https://movila.io)**
 
@@ -55,7 +55,7 @@ We recommend 15-50 photos for the best results. You can include images from any 
 Any photos that tell a story! Old black-and-white prints, polaroids, digital photos — we handle them all. The more variety in ages and moments, the richer your mini-film becomes.
 
 ### How long does it take?
-Most mini-films are ready within 24-48 hours. Rush orders available for special occasions.
+Most mini-films are ready within an hour. Rush orders available for special occasions.
 
 ### Is my family's data safe?
 Absolutely. Your photos are encrypted during upload and processing, and we delete all files from our servers within 30 days of delivery.

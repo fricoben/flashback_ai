@@ -34,9 +34,6 @@ export default function Footer() {
             <Link href="/terms" className="transition-colors hover:text-black dark:hover:text-white">
               Terms
             </Link>
-            <Link href={siteConfig.baseLinks.blog} className="transition-colors hover:text-black dark:hover:text-white">
-              Blog
-            </Link>
           </div>
           <span className="text-sm text-gray-600 dark:text-gray-400">
             &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.

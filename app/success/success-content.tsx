@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
@@ -11,6 +11,9 @@ export default function SuccessContent() {
   const [status, setStatus] = useState<Status>("loading");
   const [email, setEmail] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  
+  // Prevent double execution in React Strict Mode
+  const hasProcessed = useRef(false);
 
   useEffect(() => {
     const sessionId = searchParams.get("session_id");
@@ -21,9 +24,15 @@ export default function SuccessContent() {
       return;
     }
 
+    // Prevent double processing
+    if (hasProcessed.current) {
+      return;
+    }
+    hasProcessed.current = true;
+
     async function processPayment() {
       try {
-        // 1. Verify payment and create user
+        // Step 1: Create user and order
         setStatus("creating_account");
         
         const createResponse = await fetch("/api/auth/create-user", {
@@ -42,7 +51,7 @@ export default function SuccessContent() {
 
         setEmail(createData.email);
 
-        // 2. Send magic link
+        // Step 2: Send magic link email
         setStatus("sending_link");
         
         const linkResponse = await fetch("/api/auth/send-magic-link", {
@@ -51,11 +60,10 @@ export default function SuccessContent() {
           body: JSON.stringify({ email: createData.email }),
         });
 
-        const linkData = await linkResponse.json();
-
         if (!linkResponse.ok) {
-          // Don't fail completely - user account was created
-          console.warn("Magic link send failed:", linkData.error);
+          const linkData = await linkResponse.json();
+          console.warn("Magic link error:", linkData.error);
+          // Don't fail - user can request a new link
         }
 
         setStatus("success");
@@ -109,7 +117,7 @@ export default function SuccessContent() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-black px-6">
       <div className="max-w-lg text-center">
-        {/* Success Icon */}
+        {/* Email Icon */}
         <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full bg-[#E8C547]/20">
           <svg className="h-10 w-10 text-[#E8C547]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -134,37 +142,22 @@ export default function SuccessContent() {
           Click the link in your email to access your films. The link works on any device.
         </p>
 
-        {/* What to expect */}
-        <div className="mt-12 rounded-2xl border border-white/10 bg-white/5 p-6 text-left">
-          <h3 className="text-sm font-medium uppercase tracking-wider text-white/40">What happens next</h3>
-          <ul className="mt-4 space-y-3 text-white/60">
-            <li className="flex items-start gap-3">
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#E8C547]/20 text-xs font-bold text-[#E8C547]">1</span>
-              <span>Click the magic link in your email</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#E8C547]/20 text-xs font-bold text-[#E8C547]">2</span>
-              <span>Upload your photos (15-50 recommended)</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#E8C547]/20 text-xs font-bold text-[#E8C547]">3</span>
-              <span>Receive your film within 24-48 hours</span>
-            </li>
-          </ul>
-        </div>
-
         {/* Resend link */}
-        <p className="mt-8 text-sm text-white/40">
+        <p className="mt-10 text-sm text-white/40">
           Didn&apos;t receive the email?{" "}
           <button 
             onClick={async () => {
               if (email) {
-                await fetch("/api/auth/send-magic-link", {
+                const res = await fetch("/api/auth/send-magic-link", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ email }),
                 });
-                alert("Magic link resent!");
+                if (res.ok) {
+                  alert("Magic link sent! Check your email.");
+                } else {
+                  alert("Please wait 60 seconds before requesting another link.");
+                }
               }
             }}
             className="text-[#E8C547] hover:underline"
@@ -176,4 +169,3 @@ export default function SuccessContent() {
     </main>
   );
 }
-

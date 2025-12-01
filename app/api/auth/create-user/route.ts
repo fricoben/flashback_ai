@@ -6,6 +6,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-11-17.clover",
 });
 
+// Simple in-memory deduplication (for same server instance)
+const processedSessions = new Map<string, { timestamp: number; result: object }>();
+const CACHE_TTL = 60000; // 1 minute
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -16,6 +20,13 @@ export async function POST(request: NextRequest) {
         { error: "Missing session_id" },
         { status: 400 }
       );
+    }
+
+    // Check if we already processed this session recently
+    const cached = processedSessions.get(session_id);
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+      console.log("Returning cached result for session:", session_id);
+      return NextResponse.json(cached.result);
     }
 
     // 1. Verify payment with Stripe
@@ -48,14 +59,13 @@ export async function POST(request: NextRequest) {
     let userId: string;
 
     if (existingUser) {
-      // User exists
       userId = existingUser.id;
     } else {
       // Create new user
       const { data: newUser, error: createError } =
         await supabase.auth.admin.createUser({
           email,
-          email_confirm: true, // Auto-confirm since they paid
+          email_confirm: true,
         });
 
       if (createError || !newUser.user) {
@@ -77,7 +87,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (!existingOrder) {
-      // 4. Create order in database
+      // Create order in database
       const { error: orderError } = await supabase.from("orders").insert({
         user_id: userId,
         stripe_session_id: session_id,
@@ -97,31 +107,23 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 5. Generate and send magic link using inviteUserByEmail for new users
-    // or generateLink for existing users
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    
-    const { data: linkData, error: linkError } =
-      await supabase.auth.admin.generateLink({
-        type: "magiclink",
-        email,
-        options: {
-          redirectTo: `${baseUrl}/auth/callback?next=/product/flashback/start`,
-        },
-      });
-
-    if (linkError) {
-      console.error("Error generating magic link:", linkError);
-      // Don't fail the whole request - user can request a new link
-    }
-
-    return NextResponse.json({
+    const result = {
       success: true,
       email,
       userId,
-      // The magic link email will be sent by Supabase
-      magicLinkSent: !linkError,
-    });
+    };
+
+    // Cache the result
+    processedSessions.set(session_id, { timestamp: Date.now(), result });
+
+    // Cleanup old cache entries
+    for (const [key, value] of processedSessions.entries()) {
+      if (Date.now() - value.timestamp > CACHE_TTL) {
+        processedSessions.delete(key);
+      }
+    }
+
+    return NextResponse.json(result);
   } catch (error) {
     console.error("Create user error:", error);
     return NextResponse.json(

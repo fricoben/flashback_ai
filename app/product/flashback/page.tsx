@@ -49,9 +49,9 @@ export default function FlashbackProductPage() {
         
         {/* Left side - Video Demo */}
         <div className="flex flex-1 items-center justify-center py-8 lg:py-0">
-          <div className="relative w-full max-w-sm">
+          <div className="relative w-full max-w-lg">
             {/* Video container with subtle frame */}
-            <div className="relative aspect-[9/16] w-full overflow-hidden rounded-3xl bg-neutral-900 shadow-2xl shadow-black/50 ring-1 ring-white/10">
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl bg-neutral-900 shadow-2xl shadow-black/50 ring-1 ring-white/10">
               <video
                 src="/demo.webm"
                 className="h-full w-full object-cover"
@@ -182,7 +182,7 @@ export default function FlashbackProductPage() {
           <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
             {/* Review 1 */}
             <div className="flex flex-col">
-              <div className="relative aspect-[9/16] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
                 <video
                   src="/demo.webm"
                   className="h-full w-full object-cover"
@@ -203,7 +203,7 @@ export default function FlashbackProductPage() {
 
             {/* Review 2 */}
             <div className="flex flex-col">
-              <div className="relative aspect-[9/16] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
                 <video
                   src="/demo.webm"
                   className="h-full w-full object-cover"
@@ -224,7 +224,7 @@ export default function FlashbackProductPage() {
 
             {/* Review 3 */}
             <div className="flex flex-col md:col-span-2 md:mx-auto md:max-w-sm lg:col-span-1 lg:mx-0 lg:max-w-none">
-              <div className="relative aspect-[9/16] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
                 <video
                   src="/demo.webm"
                   className="h-full w-full object-cover"
