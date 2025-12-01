@@ -4,23 +4,24 @@ import Balancer from "react-wrap-balancer";
 import { siteConfig } from "../siteConfig";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - ReLens AI | Data Protection & Privacy",
+  title: `Privacy Policy - ${siteConfig.name} | Data Protection & Privacy`,
   description:
-    "Learn how ReLens AI protects your data and privacy. Our comprehensive privacy policy explains data collection, usage, and your rights under GDPR and Swiss data protection laws.",
+    "Learn how Movila protects your data and privacy. Our comprehensive privacy policy explains data collection, usage, and your rights regarding your family photos and personal information.",
   keywords: [
     "privacy policy",
     "data protection",
     "GDPR",
     "privacy rights",
-    "ReLens AI privacy",
+    "Movila privacy",
+    "photo privacy",
     "data security",
     "user privacy",
     "data processing",
   ],
   openGraph: {
-    title: "Privacy Policy - ReLens AI | Data Protection & Privacy",
+    title: `Privacy Policy - ${siteConfig.name} | Data Protection & Privacy`,
     description:
-      "Learn how ReLens AI protects your data and privacy. Our comprehensive privacy policy explains data collection, usage, and your rights under GDPR and Swiss data protection laws.",
+      "Learn how Movila protects your data and privacy. Our comprehensive privacy policy explains data collection, usage, and your rights.",
     url: `${siteConfig.url}/privacy`,
     type: "website",
     images: [
@@ -28,15 +29,15 @@ export const metadata: Metadata = {
         url: `${siteConfig.url}/images/preview.png`,
         width: 1200,
         height: 630,
-        alt: "ReLens AI Privacy Policy",
+        alt: "Movila Privacy Policy",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privacy Policy - ReLens AI | Data Protection & Privacy",
+    title: `Privacy Policy - ${siteConfig.name} | Data Protection & Privacy`,
     description:
-      "Learn how ReLens AI protects your data and privacy. Our comprehensive privacy policy explains data collection, usage, and your rights under GDPR and Swiss data protection laws.",
+      "Learn how Movila protects your data and privacy. Our comprehensive privacy policy explains data collection, usage, and your rights.",
     images: [`${siteConfig.url}/images/preview.png`],
   },
   alternates: {
@@ -75,13 +76,13 @@ export default function Privacy() {
       <section className="mx-auto mt-16 max-w-4xl">
         <div className="prose prose-gray max-w-none dark:prose-invert">
           <p>
-            We, LFG Labs (&ldquo;ReLens AI/we&rdquo;), welcome your use of our
+            We, LFG Labs (&ldquo;Movila/we&rdquo;), welcome your use of our
             website and web app (&ldquo;Our Services&rdquo;). In the following
             provisions, we inform you about the type, scope, and purposes of the
             collection and use of your personal data when using our services.
             Personal data refers to any information that relates to an
             identified or identifiable natural person. This includes, in
-            particular, your name and email address.
+            particular, your name, email address, and any photos you upload.
           </p>
           <p>
             In addition to the General Data Protection Regulation (GDPR), we
@@ -105,7 +106,7 @@ export default function Privacy() {
             <p>Gubelstrasse 11</p>
             <p>6300 Zug, Switzerland</p>
             <p>CHE-392.547.093 MWST</p>
-            <p>Email: contact@relens.ai</p>
+            <p>Email: contact@lfglabs.dev</p>
           </div>
 
           <h3 className="mb-6 mt-12 text-xl font-bold text-text-secondary-dark dark:text-gray-50">
@@ -133,32 +134,57 @@ export default function Privacy() {
           </p>
 
           <h3 className="mb-6 mt-12 text-xl font-bold text-text-secondary-dark dark:text-gray-50">
-            3. Data Processing upon Request
+            3. Photo Data Processing
           </h3>
           <p>
-            The use of our landing page is generally possible without providing
-            personal data. You are not obliged to visit our website or provide
-            personal data. However, for using the web app and contacting us,
-            certain data needs to be provided.
+            When you use our heritage film creation service, we process your
+            uploaded photos as follows:
           </p>
 
           <h3 className="mb-4 mt-8 text-lg font-semibold text-text-secondary-dark dark:text-gray-50">
-            3.1. Demo Booking and Contact
+            3.1. Photo Upload and Storage
           </h3>
           <p>
-            For booking demos and contacting us, we collect the following
+            Photos you upload are:
+          </p>
+          <ul>
+            <li>
+              <strong>Encrypted</strong> during upload and storage using
+              industry-standard encryption.
+            </li>
+            <li>
+              <strong>Processed</strong> only for the purpose of creating your
+              heritage film.
+            </li>
+            <li>
+              <strong>Deleted</strong> from our servers within 30 days of
+              delivering your completed film.
+            </li>
+          </ul>
+          <p>
+            <strong>Purpose:</strong> Creating your personalized heritage film.
+            <br />
+            <strong>Legal basis:</strong> Art. 6 para. 1 sentence 1 lit. b GDPR
+            (contract fulfillment).
+          </p>
+
+          <h3 className="mb-4 mt-8 text-lg font-semibold text-text-secondary-dark dark:text-gray-50">
+            3.2. Contact and Orders
+          </h3>
+          <p>
+            For placing orders and contacting us, we collect the following
             personal data:
           </p>
           <ul>
             <li>
-              <strong>Email address:</strong> for communication and follow-up.
+              <strong>Email address:</strong> for communication and delivery.
             </li>
             <li>
               <strong>Name:</strong> for personalized communication.
             </li>
             <li>
-              <strong>Company information:</strong> for understanding your
-              business needs.
+              <strong>Payment information:</strong> processed securely through
+              our payment providers.
             </li>
           </ul>
           <p>
@@ -188,46 +214,6 @@ export default function Privacy() {
             nFADP. You can adjust your cookie preferences at any time via the
             cookie banner and may revoke this consent at any time.
           </p>
-          <p>
-            For additional privacy, you can use browser plugins like AdBlock or
-            Ghostery to prevent tracking.
-          </p>
-
-          <h3 className="mb-4 mt-8 text-lg font-semibold text-text-secondary-dark dark:text-gray-50">
-            4.1. PostHog Analytics
-          </h3>
-          <p>
-            Our website uses &ldquo;PostHog&rdquo; to analyze website usage.
-            Data is stored in pseudonymized user profiles, using cookies.
-            PostHog collects information about page views, user interactions,
-            and technical information about your device and browser.
-          </p>
-          <p>
-            PostHog uses this data to evaluate website usage and create reports.
-            Data is not linked to personal data without your consent. For more
-            information, see:{" "}
-            <a
-              href="https://posthog.com/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:text-primary/80"
-            >
-              PostHog Privacy Policy
-            </a>
-            .
-          </p>
-          <p>
-            The legal basis for data processing is your consent under Art. 6
-            para. 1 lit. a GDPR, which you provide via our cookie banner.
-            PostHog processes data in accordance with GDPR requirements and
-            maintains appropriate data protection standards.
-          </p>
-          <p>
-            Data collected by PostHog may be processed on servers located
-            outside Switzerland or the EU. In such cases, we ensure appropriate
-            safeguards, such as Standard Contractual Clauses (SCCs), are in
-            place.
-          </p>
 
           <h3 className="mb-6 mt-12 text-xl font-bold text-text-secondary-dark dark:text-gray-50">
             5. Data Transfer
@@ -235,7 +221,8 @@ export default function Privacy() {
           <p>
             We only transfer your data when it is necessary for the provision of
             our services, you have consented, a legal obligation exists, or
-            another legal basis applies.
+            another legal basis applies. Your photos are never shared with third
+            parties except as strictly necessary to process your order.
           </p>
 
           <h3 className="mb-4 mt-8 text-lg font-semibold text-text-secondary-dark dark:text-gray-50">
@@ -254,15 +241,29 @@ export default function Privacy() {
           </h3>
           <p>
             We store your data only as long as necessary to fulfill the purposes
-            for which it was processed, or until legal retention periods expire.
+            for which it was processed:
           </p>
+          <ul>
+            <li>
+              <strong>Photos:</strong> Deleted within 30 days of film delivery.
+            </li>
+            <li>
+              <strong>Account data:</strong> Retained until account deletion or
+              legal retention periods expire.
+            </li>
+            <li>
+              <strong>Order records:</strong> Retained as required by applicable
+              tax and commercial laws.
+            </li>
+          </ul>
 
           <h3 className="mb-4 mt-8 text-lg font-semibold text-text-secondary-dark dark:text-gray-50">
             6.1. Security Measures
           </h3>
           <p>
             We protect your data with technical and organizational measures
-            against unauthorized access and loss.
+            against unauthorized access and loss, including encryption of photos
+            during upload and storage.
           </p>
 
           <h3 className="mb-6 mt-12 text-xl font-bold text-text-secondary-dark dark:text-gray-50">

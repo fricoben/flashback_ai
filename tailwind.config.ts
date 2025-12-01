@@ -1,8 +1,9 @@
 import type { Config } from "tailwindcss";
 
-const primary = "#3090fe";
-const background = "#edf2f5";
-const light = "#e6f6ff";
+// Black & white with yellow accent for Movila
+const primary = "#E8C547"; // Yellow accent
+const background = "#ffffff";
+const light = "#f5f5f5";
 
 const config: Config = {
   darkMode: "selector",
@@ -18,14 +19,17 @@ const config: Config = {
         primary,
         background,
         white: "#ffffff",
+        black: "#000000",
         light,
-        "text-secondary-light": "#707069",
-        "text-secondary-semi-light": "#5c5c55",
-        "text-secondary": "#483c33",
-        "text-secondary-dark": "#20201d",
-        text: "#141413",
+        "accent-yellow": "#E8C547",
+        "text-secondary-light": "#a0a0a0",
+        "text-secondary-semi-light": "#707070",
+        "text-secondary": "#4a4a4a",
+        "text-secondary-dark": "#1a1a1a",
+        text: "#000000",
       },
       fontFamily: {
+        cormorant: ["var(--font-cormorant)", "Georgia", "serif"],
         handwriting: ["var(--font-handwriting)", "cursive"],
       },
       typography: () => ({
@@ -35,11 +39,11 @@ const config: Config = {
               borderLeftColor: primary,
             },
             "ul > li::marker": {
-              color: "#141413",
+              color: "#1a1a1a",
             },
-            color: "#141413",
+            color: "#1a1a1a",
             h2: {
-              color: "#483c33",
+              color: "#000000",
             },
           },
         },
@@ -106,6 +110,14 @@ const config: Config = {
             transform: "translateY(0px)",
           },
         },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
       },
       animation: {
         hide: "hide 150ms cubic-bezier(0.16, 1, 0.3, 1)",
@@ -126,6 +138,8 @@ const config: Config = {
           "dialogContentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
         "slide-down-fade": "slide-down-fade ease-in-out",
         "slide-up-fade": "slide-up-fade ease-in-out",
+        shimmer: "shimmer 2s linear infinite",
+        "fade-in": "fade-in 0.5s ease-out",
       },
     },
   },

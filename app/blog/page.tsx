@@ -6,20 +6,19 @@ import { getBlogPosts } from "../lib/blog";
 import { siteConfig } from "../siteConfig";
 
 export const metadata: Metadata = {
-  title: "Blog - ReLens",
+  title: `Blog - ${siteConfig.name}`,
   description:
-    "Discover insights on AI, generative search, content strategy, and the future of digital marketing. Stay ahead with expert analysis and practical guides.",
+    "Discover stories, tips, and inspiration for preserving your family's legacy through film. Learn about heritage films, memory preservation, and meaningful gift ideas.",
   keywords: [
-    "AI",
-    "Generative Search",
-    "Artificial Intelligence",
-    "ReLens",
-    "AI visibility",
-    "AI tracking",
-    "brand monitoring",
-    "AI SEO",
-    "AEO",
-    "GEO",
+    "heritage films",
+    "family memories",
+    "photo preservation",
+    "Movila",
+    "family legacy",
+    "memorial videos",
+    "photo to video",
+    "gift ideas",
+    "family history",
   ],
   alternates: {
     canonical: `${siteConfig.url}/blog`,
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
     type: "website",
     title: `Blog | ${siteConfig.name}`,
     description:
-      "Discover insights on AI, generative search, content strategy, and the future of digital marketing.",
+      "Discover stories, tips, and inspiration for preserving your family's legacy through film.",
     url: `${siteConfig.url}/blog`,
     siteName: siteConfig.name,
     images: [
@@ -36,7 +35,7 @@ export const metadata: Metadata = {
         url: `${siteConfig.url}/images/preview.png`,
         width: 1200,
         height: 630,
-        alt: "ReLens AI - Get Your Product Mentioned by LLMs",
+        alt: "Movila - Turn Life Memories into Mini-Films",
       },
     ],
   },
@@ -44,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Blog | ${siteConfig.name}`,
     description:
-      "Discover insights on AI, generative search, content strategy, and the future of digital marketing.",
+      "Discover stories, tips, and inspiration for preserving your family's legacy through film.",
     images: [`${siteConfig.url}/images/preview.png`],
   },
 };
@@ -54,7 +53,7 @@ const blogPageJsonLd = {
   "@type": "Blog",
   name: `${siteConfig.name} Blog`,
   description:
-    "Discover insights on AI, generative search, content strategy, and the future of digital marketing.",
+    "Discover stories, tips, and inspiration for preserving your family's legacy through film.",
   url: `${siteConfig.url}/blog`,
   publisher: {
     "@type": "Organization",
@@ -62,7 +61,7 @@ const blogPageJsonLd = {
     url: siteConfig.url,
     logo: {
       "@type": "ImageObject",
-      url: `${siteConfig.url}/relens/logo-relens.png`,
+      url: `${siteConfig.url}/logo.svg`,
     },
   },
 };

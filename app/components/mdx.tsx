@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Image, { ImageProps } from "next/image";
 import Link from "next/link";
 import React from "react";
+import { siteConfig } from "../siteConfig";
 
 export default function slugify(str: string) {
   return str
@@ -147,7 +148,7 @@ export const BlogEntry = ({
   children,
   title,
   description,
-  author = "ReLens AI",
+  author = siteConfig.name,
 }: {
   date: string;
   children: any;
@@ -168,10 +169,10 @@ export const BlogEntry = ({
     dateModified: date,
     publisher: {
       "@type": "Organization",
-      name: "ReLens AI",
+      name: siteConfig.name,
       logo: {
         "@type": "ImageObject",
-        url: "https://relens.ai/relens/logo-relens.png",
+        url: `${siteConfig.url}/logo.svg`,
       },
     },
   };

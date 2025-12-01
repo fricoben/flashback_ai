@@ -26,7 +26,7 @@ export interface PostFrontmatter {
   tags: string[];
   image: string;
   featured?: boolean;
-  relens?: boolean;
+  hideImage?: boolean;
 }
 
 export interface Post {

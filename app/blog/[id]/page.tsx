@@ -2,6 +2,7 @@ import { AuthorBio } from "../../components/AuthorBio";
 import { Badge } from "../../components/Badge";
 import { getAuthorByName } from "../../lib/authors";
 import { getAllPosts, getPostBySlug } from "../../lib/blog";
+import { siteConfig } from "../../siteConfig";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,7 +31,7 @@ export async function generateMetadata({
     title: post.frontmatter.title,
     description: post.frontmatter.description,
     alternates: {
-      canonical: `https://relens.ai/blog/${id}`,
+      canonical: `${siteConfig.url}/blog/${id}`,
     },
     openGraph: {
       title: post.frontmatter.title,
@@ -72,32 +73,32 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     "@type": "BlogPosting",
     headline: post.frontmatter.title,
     description: post.frontmatter.description,
-    image: `https://relens.ai${post.frontmatter.image}`,
+    image: `${siteConfig.url}${post.frontmatter.image}`,
     keywords:
-      "GEO, Generative Engine Optimization, AI visibility, brand monitoring, AI SEO",
+      "heritage films, family memories, photo preservation, memorial video, family legacy",
     author: {
       "@type": "Person",
       name: author?.name || post.frontmatter.author,
-      url: `https://relens.ai/blog/author/${post.frontmatter.author}`,
+      url: `${siteConfig.url}/blog/author/${post.frontmatter.author}`,
     },
     publisher: {
       "@type": "Organization",
-      name: "ReLens AI",
+      name: siteConfig.name,
       logo: {
         "@type": "ImageObject",
-        url: "https://relens.ai/images/preview.png",
+        url: `${siteConfig.url}/logo.svg`,
       },
     },
     about: [
-      { "@type": "Thing", name: "Generative Engine Optimization" },
-      { "@type": "Thing", name: "AI SEO" },
+      { "@type": "Thing", name: "Heritage Films" },
+      { "@type": "Thing", name: "Family Memories" },
     ],
-    sameAs: ["https://relens.ai"],
+    sameAs: [siteConfig.url],
     datePublished: post.frontmatter.date,
     dateModified: post.frontmatter.modifiedDate,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://relens.ai/blog/${id}`,
+      "@id": `${siteConfig.url}/blog/${id}`,
     },
   };
 
@@ -135,7 +136,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </Link>
           </div>
 
-          {post.frontmatter.image && !post.frontmatter.relens && (
+          {post.frontmatter.image && !post.frontmatter.hideImage && (
             <figure className="mb-10 mt-10">
               <Image
                 src={post.frontmatter.image}

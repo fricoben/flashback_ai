@@ -1,34 +1,34 @@
-# GraphGPT
+# Movila
 
-GraphGPT lets you generate and interact with charts and graphs directly inside ChatGPT. It turns structured data into polished visualizations using a native widget powered by the Apps SDK.
+Movila generates beautiful mini-films from your life memories. Using AI, we transform family photos into cinematic heritage films that capture the journey, emotions, and memories of your loved ones.
 
 ---
 
 ## Overview
 
-Describe the chart you want and GraphGPT renders it inline in the conversation. Update your data or refine the prompt and the chart updates without leaving ChatGPT.
+Upload your favorite family photos — from vintage prints to recent snapshots — and Movila creates a professionally crafted mini-film that honors the people you love. Within 24-48 hours, receive a moving cinematic tribute ready to share, download, or gift.
 
 ---
 
 ## Product & Features
 
-- **Charts inside ChatGPT**: Render line, bar, area, and pie charts inline.
-- **Natural language to visuals**: Describe your desired chart; GraphGPT handles config and rendering.
-- **Interactive and responsive**: Tooltips, legends, and responsive layout work in the chat UI.
-- **Flexible data**: Accepts arrays of objects; specify `xKey`, `yKey`, `yKeys`, `nameKey`, `valueKey`.
-- **Customizable**: Set `title`, `height`, `width`, and `colors` for precise control.
-- **Apps SDK + MCP**: Backed by a Model Context Protocol tool that returns `structuredContent` to render charts.
+- **Photo to Film**: Transform scattered family photos into cohesive, cinematic mini-films.
+- **AI-Powered**: Our AI handles transitions, color grading, pacing, and emotional arc.
+- **All Formats Welcome**: Old black-and-white prints, polaroids, digital photos — we handle them all.
+- **Customizable**: Choose from film styles, select music, add captions and custom title cards.
+- **Fast Delivery**: Most mini-films are ready within 24-48 hours.
+- **Privacy First**: Photos encrypted during upload, deleted within 30 days of delivery.
 
 ---
 
 ## How it works
 
-1. ChatGPT calls the `render_chart` tool.
-2. The tool returns `structuredContent` with fields like `chartType`, `data`, `xKey`, `yKey`, `yKeys`, `nameKey`, `valueKey`, `title`, `height`, `width`, and `colors`.
-3. The `/chart` widget renders the visualization using Recharts.
+1. **Upload Photos**: Gather 15-50 family photos spanning any era.
+2. **Choose Style**: Select a film style and music that matches your family's story.
+3. **Receive Film**: Within 24-48 hours, receive your HD mini-film via email.
 
 ---
 
 ## Learn more
 
-- Website: https://graphgpt.app
+- Website: https://movila.io

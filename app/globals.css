@@ -4,15 +4,19 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --foreground-secondary: #707069;
+  --foreground: #000000;
+  --foreground-secondary: #4a4a4a;
+  --primary-color: #E8C547;
+  --accent-yellow: #E8C547;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --foreground-secondary: #d4d7da;
+    --background: #000000;
+    --foreground: #ffffff;
+    --foreground-secondary: #a0a0a0;
+    --primary-color: #E8C547;
+    --accent-yellow: #E8C547;
   }
 }
 
@@ -26,7 +30,11 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.font-cormorant {
+  font-family: var(--font-cormorant), Georgia, serif;
 }
 
 @font-face {
@@ -52,7 +60,7 @@ body {
 .backdrop-blur-nav {
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  background-color: color-mix(in srgb, var(--background) 80%, transparent);
+  background-color: color-mix(in srgb, var(--background) 85%, transparent);
 }
 
 code {
