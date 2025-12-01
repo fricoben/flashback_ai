@@ -52,30 +52,56 @@ export async function POST(request: NextRequest) {
 
     const supabase = createAdminClient();
 
-    // 2. Check if user already exists
-    const { data: existingUsers } = await supabase.auth.admin.listUsers();
-    const existingUser = existingUsers?.users?.find((u) => u.email === email);
-
+    // 2. Try to create user first (optimistic approach)
     let userId: string;
 
-    if (existingUser) {
-      userId = existingUser.id;
-    } else {
-      // Create new user
-      const { data: newUser, error: createError } =
-        await supabase.auth.admin.createUser({
-          email,
-          email_confirm: true,
-        });
+    const { data: newUser, error: createError } =
+      await supabase.auth.admin.createUser({
+        email,
+        email_confirm: true,
+      });
 
-      if (createError || !newUser.user) {
+    if (createError) {
+      // Handle "email already exists" - find the existing user
+      if (createError.code === "email_exists") {
+        // Fetch all users and find by email
+        const { data: allUsers, error: listError } =
+          await supabase.auth.admin.listUsers();
+
+        if (listError) {
+          console.error("Error listing users:", listError);
+          return NextResponse.json(
+            { error: "Failed to verify user account" },
+            { status: 500 }
+          );
+        }
+
+        const existingUser = allUsers?.users?.find(
+          (u) => u.email?.toLowerCase() === email.toLowerCase()
+        );
+
+        if (existingUser) {
+          userId = existingUser.id;
+        } else {
+          console.error("User exists but cannot be found:", email);
+          return NextResponse.json(
+            { error: "Failed to locate user account" },
+            { status: 500 }
+          );
+        }
+      } else {
         console.error("Error creating user:", createError);
         return NextResponse.json(
           { error: "Failed to create user" },
           { status: 500 }
         );
       }
-
+    } else if (!newUser.user) {
+      return NextResponse.json(
+        { error: "Failed to create user" },
+        { status: 500 }
+      );
+    } else {
       userId = newUser.user.id;
     }
 
