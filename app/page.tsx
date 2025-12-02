@@ -7,7 +7,7 @@ export default function Home() {
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
-          src="/demo.webm"
+          src="/home_video.mp4"
           className="h-full w-full object-cover"
           autoPlay
           muted

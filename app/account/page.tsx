@@ -267,20 +267,22 @@ export default function AccountPage() {
               {processingFilms.map((film) => (
                 <div
                   key={film.id}
-                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-5"
+                  className="rounded-2xl border border-white/10 bg-white/5 p-5"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10">
-                      <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10">
+                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-medium text-white">Film processing</p>
+                        <p className="text-sm text-white/60">{film.photos_count} photos • Ready in under 1 hour</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium text-white">Film processing</p>
-                      <p className="text-sm text-white/60">{film.photos_count} photos • Ready in under 1 hour</p>
-                    </div>
+                    <span className="shrink-0 self-start rounded-full bg-white/10 px-3 py-1 text-xs text-white/60 sm:self-auto">
+                      In Progress
+                    </span>
                   </div>
-                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/60">
-                    In Progress
-                  </span>
                 </div>
               ))}
             </div>

@@ -3,10 +3,25 @@
 import Link from "next/link";
 import { useState } from "react";
 
+const DEMO_VIDEOS = [
+  "/testimonials/bardo_43.webm",
+  "/testimonials/jfk_43.webm",
+  "/testimonials/chirac_43.webm",
+];
+
 export default function FlashbackProductPage() {
   const [selectedPlan, setSelectedPlan] = useState<"single" | "pack">("pack");
   const [isHovered, setIsHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+
+  function handlePrevVideo() {
+    setCurrentVideoIndex((prev) => (prev === 0 ? DEMO_VIDEOS.length - 1 : prev - 1));
+  }
+
+  function handleNextVideo() {
+    setCurrentVideoIndex((prev) => (prev === DEMO_VIDEOS.length - 1 ? 0 : prev + 1));
+  }
 
   async function handleCheckout() {
     setIsLoading(true);
@@ -51,9 +66,10 @@ export default function FlashbackProductPage() {
         <div className="flex flex-1 items-center justify-center py-8 lg:py-0">
           <div className="relative w-full max-w-lg">
             {/* Video container with subtle frame */}
-            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl bg-neutral-900 shadow-2xl shadow-black/50 ring-1 ring-white/10">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-neutral-900 shadow-2xl shadow-black/50 ring-1 ring-white/10">
               <video
-                src="/demo.webm"
+                key={currentVideoIndex}
+                src={DEMO_VIDEOS[currentVideoIndex]}
                 className="h-full w-full object-cover"
                 autoPlay
                 muted
@@ -63,21 +79,36 @@ export default function FlashbackProductPage() {
               
               {/* Play indicator overlay */}
               <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-black/60 px-3 py-1.5 backdrop-blur-sm">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
-                <span className="text-xs font-medium text-white/80">Sample Preview</span>
+                <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
+                <span className="text-xs font-medium text-white/80">Real Preview</span>
               </div>
             </div>
 
             {/* Navigation arrows like in the reference */}
             <div className="mt-6 flex justify-center">
               <div className="flex items-center gap-1 rounded-full bg-neutral-800/80 px-4 py-2.5">
-                <button className="p-1 text-white/60 transition-colors hover:text-white">
+                <button 
+                  onClick={handlePrevVideo}
+                  className="p-1 text-white/60 transition-colors hover:text-white"
+                >
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
-                <div className="mx-2 h-4 w-px bg-white/20" />
-                <button className="p-1 text-white/60 transition-colors hover:text-white">
+                <div className="mx-2 flex items-center gap-1.5">
+                  {DEMO_VIDEOS.map((_, index) => (
+                    <span
+                      key={index}
+                      className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                        index === currentVideoIndex ? "bg-white" : "bg-white/30"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <button 
+                  onClick={handleNextVideo}
+                  className="p-1 text-white/60 transition-colors hover:text-white"
+                >
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -180,11 +211,11 @@ export default function FlashbackProductPage() {
           </h2>
 
           <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-            {/* Review 1 */}
+            {/* Review 1 - JFK */}
             <div className="flex flex-col">
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
                 <video
-                  src="/demo.webm"
+                  src="/testimonials/jfk_43.webm"
                   className="h-full w-full object-cover"
                   autoPlay
                   muted
@@ -194,18 +225,18 @@ export default function FlashbackProductPage() {
               </div>
               <div className="mt-6">
                 <p className="font-cormorant text-xl italic leading-relaxed text-white/70">
-                  &ldquo;I gave this to my mom for her 70th birthday. She cried for 20 minutes. 
-                  It captured 70 years of her life in the most beautiful way.&rdquo;
+                  &ldquo;I bought three videos — one for my mother that was completely restored 
+                  and brought her to tears, and one about John Fitzgerald Kennedy. The quality is incredible.&rdquo;
                 </p>
-                <p className="mt-4 text-sm text-white/40">— Sarah M., California</p>
+                <p className="mt-4 text-sm text-white/40">— Michael T., Massachusetts</p>
               </div>
             </div>
 
-            {/* Review 2 */}
+            {/* Review 2 - Bardo */}
             <div className="flex flex-col">
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
                 <video
-                  src="/demo.webm"
+                  src="/testimonials/bardo_43.webm"
                   className="h-full w-full object-cover"
                   autoPlay
                   muted
@@ -215,18 +246,18 @@ export default function FlashbackProductPage() {
               </div>
               <div className="mt-6">
                 <p className="font-cormorant text-xl italic leading-relaxed text-white/70">
-                  &ldquo;We made one for my grandfather&apos;s memorial. The whole family 
-                  watched together — it felt like he was still with us.&rdquo;
+                  &ldquo;I made this for my grandmother&apos;s 85th birthday. 
+                  Watching her entire life unfold in a few minutes left the whole family in tears.&rdquo;
                 </p>
-                <p className="mt-4 text-sm text-white/40">— David R., Texas</p>
+                <p className="mt-4 text-sm text-white/40">— Emma L., Lyon</p>
               </div>
             </div>
 
-            {/* Review 3 */}
+            {/* Review 3 - Chirac */}
             <div className="flex flex-col md:col-span-2 md:mx-auto md:max-w-sm lg:col-span-1 lg:mx-0 lg:max-w-none">
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
                 <video
-                  src="/demo.webm"
+                  src="/testimonials/chirac_43.webm"
                   className="h-full w-full object-cover"
                   autoPlay
                   muted
@@ -236,10 +267,10 @@ export default function FlashbackProductPage() {
               </div>
               <div className="mt-6">
                 <p className="font-cormorant text-xl italic leading-relaxed text-white/70">
-                  &ldquo;From baby photos to wedding day to grandkids — seeing my parents&apos; 
-                  entire journey in 3 minutes was incredibly moving.&rdquo;
+                  &ldquo;I created this for my father. From his childhood to becoming a grandfather — 
+                  seeing his journey captured so beautifully was deeply moving.&rdquo;
                 </p>
-                <p className="mt-4 text-sm text-white/40">— Jennifer L., New York</p>
+                <p className="mt-4 text-sm text-white/40">— Pierre D., Paris</p>
               </div>
             </div>
           </div>
