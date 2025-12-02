@@ -385,6 +385,24 @@ export default function FlashbackStartPage() {
           .eq("id", order.id);
       }
 
+      // Trigger video generation on Fly.io
+      try {
+        const generateResponse = await fetch("/api/generate-film", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ film_id: currentFilm.id }),
+        });
+
+        if (!generateResponse.ok) {
+          console.error("Failed to trigger video generation");
+        } else {
+          console.log("Video generation started");
+        }
+      } catch (genError) {
+        console.error("Error triggering video generation:", genError);
+        // Don't block the user flow if generation trigger fails
+      }
+
       router.push("/product/flashback/submitted");
     } catch (error) {
       console.error("Submit error:", error);
