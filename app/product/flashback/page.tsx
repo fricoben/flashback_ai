@@ -5,9 +5,27 @@ import { useState, useEffect } from "react";
 import { tiktok, type ProductPlan } from "@/app/lib/tiktok";
 
 const DEMO_VIDEOS = [
-  "/testimonials/bardo_43.webm",
-  "/testimonials/jfk_43.webm",
-  "/testimonials/chirac_43.webm",
+  { mp4: "/testimonials/bardo_43.mp4", webm: "/testimonials/bardo_43.webm", poster: "/testimonials/bardo_43_poster.jpg" },
+  { mp4: "/testimonials/jfk_43.mp4", webm: "/testimonials/jfk_43.webm", poster: "/testimonials/jfk_43_poster.jpg" },
+  { mp4: "/testimonials/chirac_43.mp4", webm: "/testimonials/chirac_43.webm", poster: "/testimonials/chirac_43_poster.jpg" },
+];
+
+const TESTIMONIALS = [
+  {
+    video: { mp4: "/testimonials/jfk_43.mp4", webm: "/testimonials/jfk_43.webm", poster: "/testimonials/jfk_43_poster.jpg" },
+    quote: "I bought three videos — one for my mother that was completely restored and brought her to tears, and one about John Fitzgerald Kennedy. The quality is incredible.",
+    author: "Michael T., Massachusetts",
+  },
+  {
+    video: { mp4: "/testimonials/bardo_43.mp4", webm: "/testimonials/bardo_43.webm", poster: "/testimonials/bardo_43_poster.jpg" },
+    quote: "I made this for my grandmother's 85th birthday. Watching her entire life unfold in a few minutes left the whole family in tears.",
+    author: "Emma L., Lyon",
+  },
+  {
+    video: { mp4: "/testimonials/chirac_43.mp4", webm: "/testimonials/chirac_43.webm", poster: "/testimonials/chirac_43_poster.jpg" },
+    quote: "I created this for my father. From his childhood to becoming a grandfather — seeing his journey captured so beautifully was deeply moving.",
+    author: "Pierre D., Paris",
+  },
 ];
 
 export default function FlashbackProductPage() {
@@ -15,6 +33,7 @@ export default function FlashbackProductPage() {
   const [isHovered, setIsHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [playingTestimonial, setPlayingTestimonial] = useState<number | null>(null);
 
   // Track ViewContent on page load
   useEffect(() => {
@@ -78,13 +97,16 @@ export default function FlashbackProductPage() {
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-neutral-900 shadow-2xl shadow-black/50 ring-1 ring-white/10">
               <video
                 key={currentVideoIndex}
-                src={DEMO_VIDEOS[currentVideoIndex]}
                 className="h-full w-full object-cover"
+                poster={DEMO_VIDEOS[currentVideoIndex].poster}
                 autoPlay
                 muted
                 loop
                 playsInline
-              />
+              >
+                <source src={DEMO_VIDEOS[currentVideoIndex].mp4} type="video/mp4" />
+                <source src={DEMO_VIDEOS[currentVideoIndex].webm} type="video/webm" />
+              </video>
               
               {/* Play indicator overlay */}
               <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-black/60 px-3 py-1.5 backdrop-blur-sm">
@@ -220,68 +242,54 @@ export default function FlashbackProductPage() {
           </h2>
 
           <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-            {/* Review 1 - JFK */}
-            <div className="flex flex-col">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
-                <video
-                  src="/testimonials/jfk_43.webm"
-                  className="h-full w-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                />
+            {TESTIMONIALS.map((testimonial, index) => (
+              <div 
+                key={index} 
+                className={`flex flex-col ${index === 2 ? "md:col-span-2 md:mx-auto md:max-w-sm lg:col-span-1 lg:mx-0 lg:max-w-none" : ""}`}
+              >
+                <div 
+                  className="group relative aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10"
+                  onClick={() => setPlayingTestimonial(playingTestimonial === index ? null : index)}
+                >
+                  {playingTestimonial === index ? (
+                    <video
+                      className="h-full w-full object-cover"
+                      poster={testimonial.video.poster}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    >
+                      <source src={testimonial.video.mp4} type="video/mp4" />
+                      <source src={testimonial.video.webm} type="video/webm" />
+                    </video>
+                  ) : (
+                    <>
+                      {/* Poster image */}
+                      <img 
+                        src={testimonial.video.poster} 
+                        alt="Video thumbnail"
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      {/* Play button overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors group-hover:bg-black/40">
+                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform group-hover:scale-110">
+                          <svg className="ml-1 h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div className="mt-6">
+                  <p className="font-cormorant text-xl italic leading-relaxed text-white/70">
+                    &ldquo;{testimonial.quote}&rdquo;
+                  </p>
+                  <p className="mt-4 text-sm text-white/40">— {testimonial.author}</p>
+                </div>
               </div>
-              <div className="mt-6">
-                <p className="font-cormorant text-xl italic leading-relaxed text-white/70">
-                  &ldquo;I bought three videos — one for my mother that was completely restored 
-                  and brought her to tears, and one about John Fitzgerald Kennedy. The quality is incredible.&rdquo;
-                </p>
-                <p className="mt-4 text-sm text-white/40">— Michael T., Massachusetts</p>
-              </div>
-            </div>
-
-            {/* Review 2 - Bardo */}
-            <div className="flex flex-col">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
-                <video
-                  src="/testimonials/bardo_43.webm"
-                  className="h-full w-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                />
-              </div>
-              <div className="mt-6">
-                <p className="font-cormorant text-xl italic leading-relaxed text-white/70">
-                  &ldquo;I made this for my grandmother&apos;s 85th birthday. 
-                  Watching her entire life unfold in a few minutes left the whole family in tears.&rdquo;
-                </p>
-                <p className="mt-4 text-sm text-white/40">— Emma L., Lyon</p>
-              </div>
-            </div>
-
-            {/* Review 3 - Chirac */}
-            <div className="flex flex-col md:col-span-2 md:mx-auto md:max-w-sm lg:col-span-1 lg:mx-0 lg:max-w-none">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10">
-                <video
-                  src="/testimonials/chirac_43.webm"
-                  className="h-full w-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                />
-              </div>
-              <div className="mt-6">
-                <p className="font-cormorant text-xl italic leading-relaxed text-white/70">
-                  &ldquo;I created this for my father. From his childhood to becoming a grandfather — 
-                  seeing his journey captured so beautifully was deeply moving.&rdquo;
-                </p>
-                <p className="mt-4 text-sm text-white/40">— Pierre D., Paris</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
