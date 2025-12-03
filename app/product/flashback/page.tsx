@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { tiktok, type ProductPlan } from "@/app/lib/tiktok";
 
 const DEMO_VIDEOS = [
   "/testimonials/bardo_43.webm",
@@ -10,10 +11,15 @@ const DEMO_VIDEOS = [
 ];
 
 export default function FlashbackProductPage() {
-  const [selectedPlan, setSelectedPlan] = useState<"single" | "pack">("pack");
+  const [selectedPlan, setSelectedPlan] = useState<ProductPlan>("pack");
   const [isHovered, setIsHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+
+  // Track ViewContent on page load
+  useEffect(() => {
+    tiktok.trackViewContent(selectedPlan);
+  }, []); // Only track on initial page load
 
   function handlePrevVideo() {
     setCurrentVideoIndex((prev) => (prev === 0 ? DEMO_VIDEOS.length - 1 : prev - 1));
@@ -25,6 +31,9 @@ export default function FlashbackProductPage() {
 
   async function handleCheckout() {
     setIsLoading(true);
+    
+    // Track InitiateCheckout before redirecting to Stripe
+    tiktok.trackInitiateCheckout(selectedPlan);
     
     try {
       const response = await fetch("/api/checkout", {

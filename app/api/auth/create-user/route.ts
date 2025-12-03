@@ -137,6 +137,8 @@ export async function POST(request: NextRequest) {
       success: true,
       email,
       userId,
+      plan,
+      amount: session.amount_total ? session.amount_total / 100 : undefined,
     };
 
     // Cache the result

@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { tiktok, type ProductPlan } from "@/app/lib/tiktok";
 
 type Status = "loading" | "creating_account" | "sending_link" | "success" | "error";
 
@@ -50,6 +51,14 @@ export default function SuccessContent() {
         }
 
         setEmail(createData.email);
+
+        // Track Purchase event with TikTok Pixel
+        if (createData.plan && (createData.plan === "single" || createData.plan === "pack")) {
+          // Identify user with hashed email
+          await tiktok.identify({ email: createData.email });
+          // Track purchase
+          tiktok.trackPurchase(createData.plan as ProductPlan, createData.amount);
+        }
 
         // Step 2: Send magic link email
         setStatus("sending_link");
